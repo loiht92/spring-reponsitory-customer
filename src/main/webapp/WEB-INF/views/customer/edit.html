@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Customers</title>
+</head>
+<body>
+<h1>Edit customer</h1>
+<a href="/customer">List customers</a>
+<!--/*@thymesVar id="message" type="java"*/-->
+<th:block th:if="${message}">
+    <p th:text="${message}"></p>
+</th:block>
+
+<form action="/customer/edit" th:object="${customer}" method="post">
+    <input type="hidden" name="id" th:field="*{id}">
+    <table>
+        <tr>
+            <td>First Name:</td>
+            <td><input type="text" name="firstName" th:value="${customer.firstName}"></td>
+        </tr>
+        <tr>
+            <td>Last Name:</td>
+            <td><input type="text" name="lastName" th:value="${customer.lastName}"></td>
+        </tr>
+        <tr>
+            <td>Province Name:</td>
+            <td>
+                <select name="province">
+                    <option
+                            th:each="province : ${provinces}"
+                            th:value="${province.id}"
+                            th:text="${province.name}">
+                    </option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Update"></td>
+        </tr>
+    </table>
+
+</form>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
