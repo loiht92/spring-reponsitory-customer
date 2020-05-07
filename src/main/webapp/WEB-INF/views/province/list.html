@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -18,13 +18,13 @@
         <tr>
             <td th:text="${province.getName()}"></td>
             <td>
-                <a th:href="@{/edit-province/__${province.id}__ }">Edit</a>
+                <a th:href="@{province/edit/__${province.id}__ }">Edit</a>
             </td>
             <td>
-                <a th:href="@{/delete-province/__${province.id}__ }">Delete</a>
+                <a th:href="@{province/delete/__${province.id}__ }">Delete</a>
             </td>
             <td>
-                <a th:href="@{/view-province/__${province.id}__ }">View</a>
+                <a th:href="@{province/view/__${province.id}__ }">View</a>
             </td>
         </tr>
 
