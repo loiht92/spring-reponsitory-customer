@@ -1,5 +1,6 @@
 package com.codegym.cms;
 
+import com.codegym.cms.aspect.Logger;
 import com.codegym.cms.formatter.ProvinceFormatter;
 import com.codegym.cms.repository.ProvinceRepository;
 import com.codegym.cms.service.CustomerService;
@@ -13,7 +14,9 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -41,9 +44,11 @@ import java.util.Properties;
 @EnableTransactionManagement
 @ComponentScan("com.codegym.cms.controller")
 @EnableJpaRepositories("com.codegym.cms.repository")
+@EnableAspectJAutoProxy
+@EnableSpringDataWebSupport
 public class ApplicationConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
     private ApplicationContext applicationContext;
-    @Override
+    @Override //Tao kho chua Bean
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
     }
@@ -60,7 +65,7 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter implements Applic
     }
 
     @Bean
-    public TemplateEngine templateEngine(){
+    public TemplateEngine templateEngine(){ //Goi la 1 doi tuong template Resolver. Dung de gen du lieu chinh xac ra view
         TemplateEngine templateEngine = new SpringTemplateEngine();
         templateEngine.setTemplateResolver(templateResolver());
         return templateEngine;
@@ -124,4 +129,10 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter implements Applic
     public void addFormatters(FormatterRegistry registry) {
         registry.addFormatter(new ProvinceFormatter(applicationContext.getBean(ProvinceService.class)));
     }
+
+    @Bean
+    public Logger logger(){
+        return new Logger();
+    }
+
 }
