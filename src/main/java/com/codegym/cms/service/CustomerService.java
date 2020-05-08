@@ -12,6 +12,8 @@ public interface CustomerService {
 
     Page<Customer> findAll(Pageable pageable);
 
+    Page<Customer> findAllByFirstNameContaining(String firstName, Pageable pageable);
+
     Iterable<Customer> findAllByProvince(Province province);
 
     Optional<Customer> findById(Long id);
