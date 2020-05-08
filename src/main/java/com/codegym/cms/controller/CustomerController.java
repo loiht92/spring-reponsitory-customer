@@ -6,7 +6,9 @@ import com.codegym.cms.service.CustomerService;
 import com.codegym.cms.service.ProvinceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
@@ -34,8 +36,14 @@ public class CustomerController {
    }
 
    @GetMapping
-    public ModelAndView listCustomer(Pageable pageable) {
-      Page<Customer> customers = customerService.findAll(pageable);
+    public ModelAndView listCustomer(@RequestParam("first") Optional<String> first, Pageable pageable) {
+      //Page<Customer> customers = customerService.findAll(pageable);
+      Page<Customer> customers;
+      if (first.isPresent()){
+          customers = customerService.findAllByFirstName(first.get(), pageable);
+      }else {
+          customers = customerService.findAll(pageable);
+      }
       ModelAndView modelAndView = new ModelAndView("customer/list");
       modelAndView.addObject("customers", customers);
       return modelAndView;

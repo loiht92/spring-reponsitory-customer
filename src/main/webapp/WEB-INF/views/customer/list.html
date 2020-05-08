@@ -6,6 +6,11 @@
 </head>
 <body>
 <a href="/customer/create">Create new customer</a>
+<form>
+    Search by firstName:
+    <input name="first" type="text">
+    <input type="submit" value="Search">
+</form>
 <div class="notify">
     <div th:if="${message}">
         <!--/*@thymesVar id="message" type="com.codegym.AppConfiguration"*/-->

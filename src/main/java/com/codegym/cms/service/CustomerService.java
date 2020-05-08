@@ -2,6 +2,7 @@ package com.codegym.cms.service;
 import com.codegym.cms.model.Customer;
 import com.codegym.cms.model.Province;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 import java.util.Iterator;
@@ -12,7 +13,9 @@ public interface CustomerService {
 
     Page<Customer> findAll(Pageable pageable);
 
-    Page<Customer> findAllByFirstNameContaining(String firstName, Pageable pageable);
+
+
+    Page<Customer> findAllByFirstName(String firstName, Pageable pageable);
 
     Iterable<Customer> findAllByProvince(Province province);
 
