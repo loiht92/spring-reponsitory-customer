@@ -4,8 +4,10 @@ import com.codegym.cms.model.Province;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
 
 public interface CustomerService {
@@ -13,7 +15,7 @@ public interface CustomerService {
 
     Page<Customer> findAll(Pageable pageable);
 
-
+    //List<Customer> findAllFirstName(Sort sort);
 
     Page<Customer> findAllByFirstName(String firstName, Pageable pageable);
 

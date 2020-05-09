@@ -5,10 +5,17 @@ import com.codegym.cms.model.Province;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.PagingAndSortingRepository;
+
+import java.util.List;
 
 public interface CustomerRepository extends PagingAndSortingRepository<Customer, Long> {
     Iterable<Customer> findAllByProvince(Province province);
 
     Page<Customer> findAllByFirstName(String firstName, Pageable pageable);
+
+//    List<Customer> findAllFirstName(Sort sort);
+
+
 }

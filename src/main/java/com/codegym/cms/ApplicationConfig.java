@@ -2,6 +2,7 @@ package com.codegym.cms;
 
 import com.codegym.cms.aspect.Logger;
 import com.codegym.cms.formatter.ProvinceFormatter;
+import com.codegym.cms.repository.CustomerRepository;
 import com.codegym.cms.repository.ProvinceRepository;
 import com.codegym.cms.service.CustomerService;
 import com.codegym.cms.service.CustomerServiceImpl;
@@ -119,6 +120,7 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter implements Applic
     public ProvinceService provinceService(){
         return new ProvinceServiceImpl();
     }
+
 
     @Bean
     public CustomerService customerService(){
