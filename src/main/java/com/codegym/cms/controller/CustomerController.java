@@ -44,7 +44,6 @@ public class CustomerController {
 
    @GetMapping
     public ModelAndView listCustomer(@RequestParam("first") Optional<String> first, Pageable pageable) {
-       //Page<Customer> customers = customerService.findAll(pageable);
        Page<Customer> customers;
        if (first.isPresent()){
            customers = customerService.findAllByFirstName(first.get(), pageable);

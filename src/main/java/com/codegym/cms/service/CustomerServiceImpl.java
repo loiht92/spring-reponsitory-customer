@@ -18,20 +18,31 @@ public class CustomerServiceImpl implements CustomerService{
     @Autowired
     private CustomerRepository customerRepository;
 
+
+//    @Override
+//    public List<Customer> findAllByOrderByFirstNameDesc(Sort sort) {
+//        return (List<Customer>) customerRepository.findAllByFirstNameOrderByFirstNameDesc(Sort.by("firstName").descending());
+//    }
+
     @Override
     public Page<Customer> findAll(Pageable pageable) {
         return customerRepository.findAll(pageable);
     }
-
+//
 //    @Override
-//    public List<Customer> findAllFirstName(Sort sort) {
-//        return (List<Customer>) customerRepository.findAll(sort);
+//    public Page<Customer> findAll(Sort sort) {
+//        return (Page<Customer>) customerRepository.findAll(sort);
 //    }
 
     @Override
     public Page<Customer> findAllByFirstName(String firstName, Pageable pageable) {
-        return customerRepository.findAllByFirstName(firstName, pageable);
+        return customerRepository.findAllByFirstName(firstName , pageable);
     }
+
+//    @Override
+//    public Page<Customer> findAllCustomerSortByFirstName(Sort sort) {
+//        return (Page<Customer>) customerRepository.findAll(sort);
+//    }
 
     @Override
     public Iterable<Customer> findAllByProvince(Province province) {

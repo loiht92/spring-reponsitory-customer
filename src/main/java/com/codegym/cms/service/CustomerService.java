@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.Iterator;
 import java.util.List;
@@ -15,9 +16,9 @@ public interface CustomerService {
 
     Page<Customer> findAll(Pageable pageable);
 
-    //List<Customer> findAllFirstName(Sort sort);
-
     Page<Customer> findAllByFirstName(String firstName, Pageable pageable);
+
+    //Page<Customer> findAllCustomerSortByFirstName(Sort sort);
 
     Iterable<Customer> findAllByProvince(Province province);
 

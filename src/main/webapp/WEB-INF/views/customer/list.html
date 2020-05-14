@@ -5,42 +5,43 @@
     <title>Title</title>
 </head>
 <body>
-<a href="/customer/create">Create new customer</a>
-<a href="/customer">List customer</a>
+Language: <a href="?lang=en">English</a> | <a href="?lang=vi">VietNamese</a><br/>
+<a href="/customer/create"><span th:text="#{customer.create}"></span></a><br/>
+<a href="/customer"><span th:text="#{customer.listall}"></span></a>
 <form>
-    Search by firstName:
+    <span th:text="#{customer.span_label}"></span>
     <input name="first" type="text">
-    <input type="submit" value="Search">
+    <input type="submit" th:value="#{customer.search}">
 </form>
 <div class="notify">
     <div th:if="${message}">
         <!--/*@thymesVar id="message" type="com.codegym.AppConfiguration"*/-->
         <span th:text="${message}"></span>
     </div>
-    <h1>Customers</h1>
+    <h1><span th:text="#{customer.h1}"></span></h1>
     <table border="1">
         <tr>
-            <th>First name</th>
-            <th>Last name</th>
-            <th>Province name</th>
-            <th>Edit</th>
-            <th>Delete</th>
-            <th>View</th>
+            <th th:text="#{customer.th_label1}"></th>
+            <th th:text="#{customer.th_label2}"></th>
+            <th th:text="#{customer.th_label3}"></th>
+            <th th:text="#{customer.th_label4}"></th>
+            <th th:text="#{customer.th_label5}"></th>
+            <th th:text="#{customer.th_label6}"></th>
         </tr>
             <tr th:each="customer : ${customers} ">
                 <td th:text="${customer.firstName}"></td>
                 <td th:text="${customer.lastName}"></td>
                 <td th:text="${customer.province.name}"></td>
-                <td><a th:href="@{/customer/edit/{id}(id=${customer.getId()})}">Edit</a></td>
-                <td><a th:href="@{/customer/delete/{id}(id=${customer.getId()})}">Delete</a></td>
-                <td><a th:href="@{/customer/view/{id}(id=${customer.getId()})}">View</a></td>
+                <td><a th:href="@{/customer/edit/{id}(id=${customer.getId()})}"><span th:text="#{customer.th_label4}"></span></a></td>
+                <td><a th:href="@{/customer/delete/{id}(id=${customer.getId()})}"><span th:text="#{customer.th_label5}"></span></a></td>
+                <td><a th:href="@{/customer/view/{id}(id=${customer.getId()})}"><span th:text="#{customer.th_label6}"></span></a></td>
             </tr>
     </table>
 </div>
 <div>
-    <a th:href="@{'/customer'(page=${customers.number - 1})}" th:if="${customers.hasPrevious()}">Previous</a>
+    <a th:href="@{'/customer'(page=${customers.number - 1})}" th:if="${customers.hasPrevious()}"><span th:text="#{customer.previous}"></span></a>
     <span th:text="${customers.number + 1}"></span>/<span th:text="${customers.totalPages}"></span>
-    <a th:href="@{'/customer'(page=${customers.number + 1})}" th:if="${customers.hasNext()}">Next</a>
+    <a th:href="@{'/customer'(page=${customers.number + 1})}" th:if="${customers.hasNext()}"><span th:text="#{customer.next}"></span></a>
 </div>
 </body>
 </html>
