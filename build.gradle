@@ -33,6 +33,8 @@ dependencies {
     compile group: 'org.springframework', name: 'spring-orm', version: '5.2.3.RELEASE'
 
     compile group: 'org.thymeleaf', name: 'thymeleaf-spring4', version: '3.0.11.RELEASE'
+// https://mvnrepository.com/artifact/org.thymeleaf/thymeleaf-spring5
+  //  compile group: 'org.thymeleaf', name: 'thymeleaf-spring5', version: '3.0.11.RELEASE'
 
     compile group: 'org.springframework.data', name: 'spring-data-jpa', version: '2.2.5.RELEASE'
 
@@ -42,5 +44,13 @@ dependencies {
 
     compile group: 'org.springframework.data', name: 'spring-data-commons', version: '2.2.5.RELEASE'
 
+    // https://mvnrepository.com/artifact/org.springframework.security/spring-security-web
+//    compile group: 'org.springframework.security', name: 'spring-security-web', version: '5.3.2.RELEASE'
+    compile group: 'org.springframework.security', name: 'spring-security-web', version: '5.3.2.RELEASE'
+    compile group: 'org.springframework.security', name: 'spring-security-config', version: '5.3.2.RELEASE'
+    compile group: 'org.springframework.security', name: 'spring-security-taglibs', version: '5.3.2.RELEASE'
+    compile group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity4', version: '3.0.2.RELEASE'
+// https://mvnrepository.com/artifact/org.thymeleaf.extras/thymeleaf-extras-springsecurity5
+ //   compile group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity5', version: '3.0.4.RELEASE'
 
 }

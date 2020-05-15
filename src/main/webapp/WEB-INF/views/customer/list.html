@@ -1,14 +1,26 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
+<h2>Spring Security Example</h2>
+<hr/>
+<h3>User dashboard</h3>
+<div sec:authorize="isAuthenticated()">
+    <b>Welcome!<span sec:authentication="principal.username"></span></b>
+</div>
+<br/>
+<div sec:authorize="isAuthenticated()">
+    <a th:href="@{/list}">Home</a> | <a th:href="@{/logout}">Logout</a>
+</div>
+
 Language: <a href="?lang=en">English</a> | <a href="?lang=vi">VietNamese</a><br/>
 <a href="/customer/create"><span th:text="#{customer.create}"></span></a><br/>
 <a href="/customer"><span th:text="#{customer.listall}"></span></a>
-<form>
+<form sec:authorize="isAuthenticated()">
     <span th:text="#{customer.span_label}"></span>
     <input name="first" type="text">
     <input type="submit" th:value="#{customer.search}">
@@ -19,7 +31,7 @@ Language: <a href="?lang=en">English</a> | <a href="?lang=vi">VietNamese</a><br/
         <span th:text="${message}"></span>
     </div>
     <h1><span th:text="#{customer.h1}"></span></h1>
-    <table border="1">
+    <table border="1" sec:authorize="isAuthenticated()">
         <tr>
             <th th:text="#{customer.th_label1}"></th>
             <th th:text="#{customer.th_label2}"></th>
@@ -38,7 +50,7 @@ Language: <a href="?lang=en">English</a> | <a href="?lang=vi">VietNamese</a><br/
             </tr>
     </table>
 </div>
-<div>
+<div sec:authorize="isAuthenticated()">
     <a th:href="@{'/customer'(page=${customers.number - 1})}" th:if="${customers.hasPrevious()}"><span th:text="#{customer.previous}"></span></a>
     <span th:text="${customers.number + 1}"></span>/<span th:text="${customers.totalPages}"></span>
     <a th:href="@{'/customer'(page=${customers.number + 1})}" th:if="${customers.hasNext()}"><span th:text="#{customer.next}"></span></a>

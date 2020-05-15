@@ -26,6 +26,8 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.LocaleResolver;
@@ -36,6 +38,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.dialect.IDialect;
+import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
+import org.thymeleaf.spring4.ISpringTemplateEngine;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
@@ -44,8 +49,10 @@ import org.thymeleaf.templatemode.TemplateMode;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
+import java.util.HashSet;
 import java.util.Locale;
 import java.util.Properties;
+import java.util.Set;
 
 @Configuration
 @EnableWebMvc
@@ -73,16 +80,20 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter implements Applic
     }
 
     @Bean
-    public TemplateEngine templateEngine(){ //Goi la 1 doi tuong template Resolver. Dung de gen du lieu chinh xac ra view
+    public TemplateEngine templateEngine(){ //Goi la 1 doi tuong tem`plate Resolver. Dung de gen du lieu chinh xac ra view
         TemplateEngine templateEngine = new SpringTemplateEngine();
         templateEngine.setTemplateResolver(templateResolver());
+        Set<IDialect> iDialects = new HashSet<>();
+        iDialects.add(new SpringSecurityDialect());
+//        templateEngine.addDialect(dialects);
+        templateEngine.setAdditionalDialects(iDialects);
         return templateEngine;
     }
 
     @Bean
     public ThymeleafViewResolver viewResolver(){
         ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
-        viewResolver.setTemplateEngine(templateEngine());
+        viewResolver.setTemplateEngine((ISpringTemplateEngine) templateEngine());
         viewResolver.setCharacterEncoding("UTF-8");
         return viewResolver;
     }
@@ -145,11 +156,11 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter implements Applic
         registry.addInterceptor(interceptor);
     }
 
+
     @Bean
     public ProvinceService provinceService(){
         return new ProvinceServiceImpl();
     }
-
 
     @Bean
     public CustomerService customerService(){
