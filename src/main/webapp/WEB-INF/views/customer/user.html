@@ -9,17 +9,20 @@
 <h2>Spring Security Example</h2>
 <hr/>
 <h3>User dashboard</h3>
-<div th:text="${#authentication.name}"></div>
-<div th:if="${#authorization.getAuthentication().isAuthenticated()}">
-    This will only be displayed if authenticated user has role ROLE_ADMIN.
-</div>
-<div sec:authorize="isAuthenticated()">
-    <b>Welcome!<span th:text="${#authentication.name}"></span></b>
+<!--<div th:text="${#authentication.getName()}"></div>-->
+<!--<div th:if="${#authorization.getAuthentication().isAuthenticated()}">-->
+<!--    This will only be displayed if authenticated user has role ROLE_ADMIN.-->
+<!--</div>-->
+<span>Welcome !</span><div th:text="${#authentication.name}">
+<!--    <b>Welcome! <span th:text="${#authentication.name}"></span></b>-->
 <!--        <span sec:authentication="principal.username"></span></b>-->
 </div>
 <br/>
-<div th:text="${#authentication}" sec:authorize="isAuthenticated()">
-    <a th:href="@{/}">Home</a> | <a th:href="@{/logout}">Logout</a>
-</div>
+
+<!--<div th:text="${#authentication}" sec:authorize="isAuthenticated()">-->
+    <a th:href="@{/}">Home</a> |
+    <a th:href="@{/customer}">List Customer</a> |
+    <a th:href="@{/logout}">Logout</a>
+<!--</div>-->
 </body>
 </html>

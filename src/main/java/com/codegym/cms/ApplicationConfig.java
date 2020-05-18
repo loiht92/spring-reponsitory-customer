@@ -4,10 +4,7 @@ import com.codegym.cms.aspect.Logger;
 import com.codegym.cms.formatter.ProvinceFormatter;
 import com.codegym.cms.repository.CustomerRepository;
 import com.codegym.cms.repository.ProvinceRepository;
-import com.codegym.cms.service.CustomerService;
-import com.codegym.cms.service.CustomerServiceImpl;
-import com.codegym.cms.service.ProvinceService;
-import com.codegym.cms.service.ProvinceServiceImpl;
+import com.codegym.cms.service.*;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
@@ -167,6 +164,11 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter implements Applic
         return new CustomerServiceImpl();
     }
 
+    @Bean
+    public AppUserService appUserService(){
+        return new AppUserServiceImpl();
+    }
+
     @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addFormatter(new ProvinceFormatter(applicationContext.getBean(ProvinceService.class)));
@@ -176,5 +178,7 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter implements Applic
     public Logger logger(){
         return new Logger();
     }
+
+
 
 }

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-seurity">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -9,29 +9,27 @@
 <h2>Spring Security Example</h2>
 <hr/>
 <h3>User dashboard</h3>
-<div sec:authorize="isAuthenticated()">
-    <b>Welcome!<span sec:authentication="principal.username"></span></b>
-</div>
+<!--<span>Welcome !</span><div th:text="${#authentication.name}">-->
 <br/>
-<div sec:authorize="isAuthenticated()">
+<div>
     <a th:href="@{/list}">Home</a> | <a th:href="@{/logout}">Logout</a>
 </div>
-
-Language: <a href="?lang=en">English</a> | <a href="?lang=vi">VietNamese</a><br/>
+Language: <a href="?lang=en">English</a> | <a href="?lang=vi">Vietnamese</a><br/>
 <a href="/customer/create"><span th:text="#{customer.create}"></span></a><br/>
 <a href="/customer"><span th:text="#{customer.listall}"></span></a>
-<form sec:authorize="isAuthenticated()">
+<form>
     <span th:text="#{customer.span_label}"></span>
     <input name="first" type="text">
     <input type="submit" th:value="#{customer.search}">
 </form>
+
 <div class="notify">
     <div th:if="${message}">
-        <!--/*@thymesVar id="message" type="com.codegym.AppConfiguration"*/-->
+        <!--/*@thymesVar id="message" type="Gom.codegym.AppConfiguration"*/-->
         <span th:text="${message}"></span>
     </div>
     <h1><span th:text="#{customer.h1}"></span></h1>
-    <table border="1" sec:authorize="isAuthenticated()">
+    <table border="1" >
         <tr>
             <th th:text="#{customer.th_label1}"></th>
             <th th:text="#{customer.th_label2}"></th>
@@ -50,10 +48,11 @@ Language: <a href="?lang=en">English</a> | <a href="?lang=vi">VietNamese</a><br/
             </tr>
     </table>
 </div>
-<div sec:authorize="isAuthenticated()">
+<div>
     <a th:href="@{'/customer'(page=${customers.number - 1})}" th:if="${customers.hasPrevious()}"><span th:text="#{customer.previous}"></span></a>
     <span th:text="${customers.number + 1}"></span>/<span th:text="${customers.totalPages}"></span>
     <a th:href="@{'/customer'(page=${customers.number + 1})}" th:if="${customers.hasNext()}"><span th:text="#{customer.next}"></span></a>
+</div>
 </div>
 </body>
 </html>

@@ -32,23 +32,15 @@ public class UserController {
     }
 
     @GetMapping("/admin")
-    public String admin() {
-        // Get authenticated user name from SecurityContext
-        SecurityContext context = SecurityContextHolder.getContext();
-        System.out.println(context.getAuthentication().getName());
+    public String admin(Principal principal) {
+        // Get authenticated user name from Principal
+        System.out.println(principal.getName());
         return "customer/admin";
     }
-    @GetMapping("/list")
-    public ModelAndView user(Pageable pageable){
-        ModelAndView modelAndView = new ModelAndView("customer/list");
-        modelAndView.addObject("customers", customerService.findAll(pageable));
-        return modelAndView;
-    }
 
-//    @GetMapping("/admin")
-//    public String admin(){
-//        SecurityContext context = SecurityContextHolder.getContext();
-//        return "/customer/admin";
-
+    @GetMapping("/accessDenied")
+    public String error() {
+        return "accessDenied";
     }
+}
 
