@@ -4,6 +4,7 @@ import com.codegym.cms.service.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -21,7 +22,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private AppUserService appUserService;
+    //
+    @Autowired
+    public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService());
+        auth.authenticationProvider(authenticationProvider());
+    }
+    @Bean
+    public PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
 
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider(){
+        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+        authenticationProvider.setUserDetailsService(userDetailsService());
+        authenticationProvider.setPasswordEncoder(passwordEncoder());
+        return authenticationProvider;
+    }
+
+    //
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
@@ -59,6 +79,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 
+//    @Bean
+//    public PasswordEncoder passwordEncoder() { return new BCryptPasswordEncoder(20); }
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 //        auth.inMemoryAuthentication()
@@ -66,7 +89,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //            .and()
 //            .withUser("admin").password("12345").roles("ADMIN");
 
-        auth.userDetailsService((UserDetailsService) appUserService).passwordEncoder(NoOpPasswordEncoder.getInstance());
+        auth.userDetailsService((UserDetailsService) appUserService).passwordEncoder(new BCryptPasswordEncoder());
     }
 
 //    @Bean
