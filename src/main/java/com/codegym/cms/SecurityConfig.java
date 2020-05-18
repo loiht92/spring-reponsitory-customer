@@ -25,8 +25,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     //
     @Autowired
     public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService());
-        auth.authenticationProvider(authenticationProvider());
+        auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
     }
     @Bean
     public PasswordEncoder passwordEncoder(){
