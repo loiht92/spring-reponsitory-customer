@@ -1,6 +1,6 @@
 package config;
 
-import com.codegym.cms.security.SecurityConfig;
+import com.codegym.cms.test.security.SecurityConfig;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class ApplicationInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
