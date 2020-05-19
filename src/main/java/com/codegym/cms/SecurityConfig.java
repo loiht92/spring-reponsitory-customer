@@ -36,14 +36,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public static void main(String[] args) {
         String pass = new BCryptPasswordEncoder().encode("12345");
         System.out.println(pass);
+
+        String pass1 = new BCryptPasswordEncoder().encode("12346");
+        System.out.println(pass1);
+
+        String pass2 = new BCryptPasswordEncoder().encode("12347");
+        System.out.println(pass2);
+
+        String pass3 = new BCryptPasswordEncoder().encode("12348");
+        System.out.println(pass3);
     }
-    @Bean
-    public DaoAuthenticationProvider authenticationProvider(){
-        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-        authenticationProvider.setUserDetailsService(userDetailsService());
-        authenticationProvider.setPasswordEncoder(passwordEncoder());
-        return authenticationProvider;
-    }
+//    @Bean
+//    public DaoAuthenticationProvider authenticationProvider(){
+//        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+//        authenticationProvider.setUserDetailsService(userDetailsService());
+//        authenticationProvider.setPasswordEncoder(passwordEncoder());
+//        return authenticationProvider;
+//    }
 
     //
     @Override

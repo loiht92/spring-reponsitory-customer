@@ -10,6 +10,20 @@ repositories {
     mavenCentral()
 }
 
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events "PASSED", "STARTED", "FAILED", "SKIPPED", "STANDARD_OUT", "STANDARD_ERROR"
+    }
+    afterTest { desc, result ->
+        println "Testing ${desc.name} [${desc.className}]: ${result.resultType}"
+    }
+    reports {
+        html.enabled = true
+    }
+}
+
 dependencies {
 
     compile group: 'org.hibernate', name: 'hibernate-core', version: '5.4.3.Final'
@@ -52,5 +66,8 @@ dependencies {
     compile group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity4', version: '3.0.2.RELEASE'
 // https://mvnrepository.com/artifact/org.thymeleaf.extras/thymeleaf-extras-springsecurity5
  //   compile group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity5', version: '3.0.4.RELEASE'
+    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.2.0'
+    testCompile group: 'org.junit.platform', name: 'junit-platform-commons', version: '1.2.0'
+    testCompile group: 'org.junit.platform', name: 'junit-platform-launcher', version: '1.2.0'
 
 }
