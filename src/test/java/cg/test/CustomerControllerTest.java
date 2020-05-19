@@ -51,20 +51,20 @@ public class CustomerControllerTest {
                 .andExpect(view().name("customer/list"));
     }
 
-//    @Test
-//    void customersListPageIsExists() throws  Exception {
-//        mockMvc
-//                .perform(get("/customer"))
-//                .andExpect(status().isOk());
-//    }
+    @Test
+    void customersListPageIsExists() throws  Exception {
+        mockMvc
+                .perform(get("/customer"))
+                .andExpect(status().isOk());
+    }
 
-//    @Test
-//    void customerBrowseControlling() throws  Exception {
-//        mockMvc
-//                .perform(get("/customers"))
-//                .andExpect(status().isOk())
-//                .andExpect(view().name("customers/browse"));
-//    }
+    @Test
+    void customerBrowseControlling() throws  Exception {
+        mockMvc
+                .perform(get("/customer"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("customer/list"));
+    }
 
 }
 
