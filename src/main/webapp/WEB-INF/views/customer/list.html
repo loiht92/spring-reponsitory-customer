@@ -21,6 +21,16 @@ Language: <a href="?lang=en">English</a> | <a href="?lang=vi">Vietnamese</a><br/
     <span th:text="#{customer.span_label}"></span>
     <input name="first" type="text">
     <input type="submit" th:value="#{customer.search}">
+
+    <select name="provinceId">
+        <option
+                th:each="province : ${provinces}"
+                th:value="${province.id}"
+                th:text="${province.name}">
+        </option>
+    </select>
+    <input type="submit" th:value="#{customer.search}">
+
 </form>
 
 <div class="notify">

@@ -1,5 +1,6 @@
 package com.codegym.cms.service;
 
+import com.codegym.cms.model.Customer;
 import com.codegym.cms.model.Province;
 import com.codegym.cms.repository.ProvinceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,11 @@ public class ProvinceServiceImpl implements ProvinceService{
     @Override
     public Iterable<Province> findAll() {
         return provinceRepository.findAll();
+    }
+
+    @Override
+    public Optional<Province> findAllByCustomer(Customer customer) {
+        return provinceRepository.findByCustomer(customer);
     }
 
     @Override

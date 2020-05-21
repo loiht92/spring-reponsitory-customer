@@ -4,15 +4,19 @@ import com.codegym.cms.model.Customer;
 import com.codegym.cms.model.Province;
 import com.codegym.cms.service.CustomerService;
 import com.codegym.cms.service.ProvinceService;
+import net.bytebuddy.implementation.bind.annotation.Default;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 import java.util.Optional;
 
 @Controller
@@ -33,12 +37,20 @@ public class CustomerController {
    }
 
    @GetMapping
-    public ModelAndView listCustomer(@RequestParam("first") Optional<String> first, Pageable pageable) {
+    public ModelAndView listCustomer(@RequestParam("first") Optional<String> first,
+                                     @RequestParam(required = false) Long provinceId,
+                                     @PageableDefault(size = 3) Pageable pageable) {
        Page<Customer> customers;
        if (first.isPresent()){
            customers = customerService.findAllByFirstName(first.get(), pageable);
-       }else {
+       } else {
            customers = customerService.findAll(pageable);
+       }
+       Optional<Province> province = Objects.nonNull(provinceId)
+               ? provinceService.findById(provinceId)
+               : Optional.empty();
+       if (province.isPresent()) {
+           customers = new PageImpl<>(province.get().getCustomers());
        }
        ModelAndView modelAndView = new ModelAndView("customer/list");
        modelAndView.addObject("customers", customers);
@@ -46,7 +58,7 @@ public class CustomerController {
    }
 
    @GetMapping("/create")
-    public ModelAndView showCreateCustomer(){
+    public ModelAndView showCreateCustomer(@RequestParam("first") String first){
        ModelAndView modelAndView = new ModelAndView("customer/create");
        modelAndView.addObject("customer", new Customer());
        return modelAndView;

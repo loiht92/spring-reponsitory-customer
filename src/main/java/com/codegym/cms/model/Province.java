@@ -10,7 +10,19 @@ public class Province {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     private String name;
+
+    @OneToMany(mappedBy = "province", fetch = FetchType.EAGER)
+    private List<Customer> customers;
+
+    public List<Customer> getCustomers() {
+        return customers;
+    }
+
+    public void setCustomers(List<Customer> customers) {
+        this.customers = customers;
+    }
 
     public Province(){
     }

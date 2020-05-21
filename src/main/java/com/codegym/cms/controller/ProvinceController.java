@@ -1,5 +1,5 @@
 package com.codegym.cms.controller;
-
+import com.codegym.cms.model.Customer;
 import com.codegym.cms.model.Province;
 import com.codegym.cms.service.CustomerService;
 import com.codegym.cms.service.ProvinceService;
@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -24,8 +25,11 @@ public class ProvinceController {
     @GetMapping
     public ModelAndView listProvince() {
         Iterable<Province> provinces = provinceService.findAll();
+        //Iterable<Customer> customers = customerService.findAllByProvince((Province) provinces);
         ModelAndView modelAndView = new ModelAndView("province/list");
         modelAndView.addObject("provinces", provinces);
+        Province p = new Province();
+        List<Customer> x = p.getCustomers();
         return modelAndView;
     }
 
@@ -86,6 +90,7 @@ public class ProvinceController {
     public ModelAndView viewProvince(@PathVariable Long id){
         Optional<Province> province = provinceService.findById(id);
         if (province.isPresent()){
+
             ModelAndView modelAndView = new ModelAndView("province/view");
             modelAndView.addObject("province", province.get());
             return modelAndView;
